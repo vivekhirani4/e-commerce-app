@@ -2,6 +2,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import 'catagory_list.dart';
+
 class Catogory extends StatefulWidget {
   const Catogory({super.key});
 
@@ -26,7 +28,6 @@ class _CatogoryState extends State<Catogory> {
 
     Map<String, dynamic> mymap = json.decode(response.body);
     data = mymap['category'];
-
     
   }
   @override
@@ -38,21 +39,22 @@ class _CatogoryState extends State<Catogory> {
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: ListTile(
-                        trailing: Image.network(data[index]['category_image']),
-                        title: Text(data[index]['category_name']),
-                      ),
-                    );
-                  },
-                )
-              ],
+            child: ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context, 
+                        MaterialPageRoute(builder: (context) => CatogoryList(
+                        ),));
+                    },
+                    trailing: Image.network(data[index]['category_image']),
+                    title: Text(data[index]['category_name']),
+                  ),
+                );
+              },
             ),
         ),
       )

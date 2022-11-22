@@ -66,9 +66,15 @@ class _RegistrationState extends State<Registration> {
 
                 TextField(
                   controller: password,
+                  obscureText: true,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.admin_panel_settings_rounded),
                     hintText: 'Password',
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        
+                      }, 
+                      icon: Icon(Icons.remove_red_eye)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50)
                     )
