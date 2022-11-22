@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -11,7 +11,51 @@ class Catogory extends StatefulWidget {
 
 class _CatogoryState extends State<Catogory> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _fetchCategory();
+  }
+  var data = [];
+
+  void _fetchCategory() async {
+    var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-view-category.php');
+    var response = await http.get(url);
+    print('status code : ${response.statusCode}');
+    print('response body : ${response.body}');
+
+    Map<String, dynamic> mymap = json.decode(response.body);
+    data = mymap['category'];
+
+    
+  }
+  @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Catogory list'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: ListTile(
+                        trailing: Image.network(data[index]['category_image']),
+                        title: Text(data[index]['category_name']),
+                      ),
+                    );
+                  },
+                )
+              ],
+            ),
+        ),
+      )
+    );
   }
 }

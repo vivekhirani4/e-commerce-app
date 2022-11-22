@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:intl/intl.dart';
+
 import 'package:http/http.dart' as http;
 
 
@@ -20,29 +19,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController address = TextEditingController();
 
 
-  DateTime selectDate = DateTime.now();
-
-  Future<Null> _selectDate(BuildContext context) async{
-    final DateTime? picked = await showDatePicker(
-      context: context,
-       initialDate: selectDate,
-        firstDate: DateTime(1915, 8),
-         lastDate: DateTime(2122)
-    );
-
-    if(picked != null && picked != selectDate){
-      setState(() {
-        selectDate = picked;
-      });
-    }
-  }
 
   String? gender;
 
   @override
   Widget build(BuildContext context) {
-
-    String resultDate = DateFormat('dd-MM-yyyy').format(selectDate);
 
     return Scaffold(
       appBar: AppBar(
@@ -154,18 +135,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
 
                 const SizedBox(height: 10,),
-
-                Row(
-                  children: [
-                    ElevatedButton(onPressed:
-                     () {
-                      _selectDate(context);
-                     }, child: const Text("Birth Date")
-                    ),
-                    const SizedBox(width: 15,),
-                    Text('$selectDate'),
-                  ],
-                ),
 
                 const SizedBox(height: 10,),
 
