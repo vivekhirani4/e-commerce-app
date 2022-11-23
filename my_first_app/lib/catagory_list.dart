@@ -12,15 +12,17 @@ class CatogoryList extends StatefulWidget {
 
 class _CatogoryListState extends State<CatogoryList> {
 
+  Future? myfuture;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _fetchCatogoryList();
+    myfuture = _fetchCatogoryList();
   }
 
   var mydata = [];
-  void _fetchCatogoryList() async {
+  Future<List> _fetchCatogoryList() async {
 
      var url = Uri.https('akashsir.in','/myapi/ecom1/api/sub_category_display.php');
     var response = await http.post(url , body: {'category_id': '1'});
@@ -30,6 +32,8 @@ class _CatogoryListState extends State<CatogoryList> {
     Map<String , dynamic> mymap = json.decode(response.body);
     mydata = mymap['sub_category'];
 
+    return mydata;
+
   }
   @override
   Widget build(BuildContext context) {
@@ -37,24 +41,29 @@ class _CatogoryListState extends State<CatogoryList> {
       appBar: AppBar(
         title: Text('catogory list'),
       ),
-      body: ListView.builder(
-        itemCount: mydata.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                )
-              ],
+      body: FutureBuilder<dynamic>(
+        future: myfuture,
+        builder: (context, snapshot) {
+          if(!snapshot.hasData)
+          {
+            return Center(child: CircularProgressIndicator(),);
+          }
+          if(snapshot.hasError)
+          {
+            return Center(child: Text('has some error'),
+            );
+          }
+          return ListView.builder(
+          itemCount: snapshot.data.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                leading: Text(snapshot.data[index]['sub_category_name']),
               ),
-          );
+            );
+          },
+        );
         },
-    
       ),
     );
   }
