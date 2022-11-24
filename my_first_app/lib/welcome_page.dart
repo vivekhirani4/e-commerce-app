@@ -16,7 +16,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFFFFA28), Color(0xFFFF6F00)]
+          colors: [Color(0xFFFFCA28), Color(0xFFFF6F00)]
           ),
         ),
       child: Scaffold(
@@ -34,6 +34,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     'Welcome!',
                     style: TextStyle(
                       fontSize: 30,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -83,6 +84,31 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           borderRadius: BorderRadius.circular(20)
                         ),
                         child: Text("Login",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),),
+                      ),
+
+                      SizedBox(height: 15,),
+
+                      MaterialButton(
+                        minWidth: double.infinity,
+                        height: 60,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Login(),
+                            ),
+                          );
+                        },
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: Colors.black
+                          ),
+                          borderRadius: BorderRadius.circular(20)
+                        ),
+                        child: Text("Sigup",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),),
