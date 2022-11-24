@@ -58,7 +58,9 @@ class _CatogoryListState extends State<CatogoryList> {
           itemBuilder: (context, index) {
             return Card(
               child: ListTile(
-                leading: Text(snapshot.data[index]['sub_category_name']),
+                leading: Image.network(snapshot.data[index]['sub_category_image'],
+                width: 100,),
+                title: Text(snapshot.data[index]['sub_category_name']),
               ),
             );
           },

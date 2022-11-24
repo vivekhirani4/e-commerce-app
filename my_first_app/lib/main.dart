@@ -4,6 +4,7 @@ import 'package:my_first_app/catagory_list.dart';
 import 'package:my_first_app/login.dart';
 import 'package:my_first_app/registration.dart';
 import 'package:my_first_app/singup.dart';
+import 'package:my_first_app/splash_screen.dart';
 
 
 
@@ -18,7 +19,7 @@ class Myapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CatogoryList(),
+      home: SplashScreen(),
     );
   }
 }
