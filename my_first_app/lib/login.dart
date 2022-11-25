@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:http/http.dart' as http;
 import 'package:my_first_app/catagory.dart';
-import 'package:my_first_app/singup.dart';
+import 'package:my_first_app/registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'dart:convert';
@@ -135,7 +135,7 @@ class _LoginState extends State<Login> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>  RegistrationPage(),
+                    MaterialPageRoute(builder: (context) =>  Registration(),
                     )
                   );
                 },
