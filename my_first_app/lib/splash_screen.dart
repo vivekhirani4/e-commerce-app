@@ -19,8 +19,10 @@ class _SplashScreenState extends State<SplashScreen> {
     _navigateToHome();
   }
 
+  bool animate = false;
+
   _navigateToHome() async{
-    await Future.delayed(Duration(milliseconds: 1500));
+    await Future.delayed(Duration(milliseconds: 3000));
     Navigator.pushReplacement(
       context, MaterialPageRoute(builder: (context) => WelcomeScreen(),));
   }
@@ -28,10 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          child: Text('splash'),
-        ),
+      body: Container(
+        child: Image.asset('assets/shop.png'),
       ),
     );
   }

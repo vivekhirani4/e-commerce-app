@@ -55,94 +55,139 @@ class _LoginState extends State<Login> {
 
   TextEditingController id = TextEditingController();
   TextEditingController password = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Login page"),
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/login.png'), fit: BoxFit.cover),
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            children: [
-              const SizedBox(height: 40,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.network('https://cdn-icons-png.flaticon.com/512/5087/5087579.png',
-                  height: 60,
-                  width: 60,),
-                  const SizedBox(width: 10,),
-
-                  GradientText('Login',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25
-                    ),
-                    colors: const [
-                      Colors.blue,
-                      Colors.pink
-                    ],
-                  ),
-                ],
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            Container(),
+            Container(
+              padding: EdgeInsets.only(left: 35, top: 130),
+              child: Text(
+                'Welcome\nBack',
+                style: TextStyle(color: Colors.white, fontSize: 33),
               ),
+            ),
+            SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.5),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 35, right: 35),
+                      child: Column(
+                        children: [
+                          TextField(
+                            controller: id,
+                            style: TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                                fillColor: Colors.grey.shade100,
+                                filled: true,
+                                hintText: "Email",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          TextField(
+                            controller: password,
+                            style: TextStyle(),
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                fillColor: Colors.grey.shade100,
+                                filled: true,
+                                hintText: "Password",
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                )),
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Sign in',
+                                style: TextStyle(
+                                    fontSize: 27, fontWeight: FontWeight.w700),
+                              ),
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Color(0xff4c505b),
+                                child: IconButton(
+                                    color: Colors.white,
+                                    onPressed: () {
 
-              SizedBox(height: 20,),
-              TextField(
-                controller: id,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.person),
-                  focusColor: Colors.green,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12)
-                  ),
-                  labelText: 'Enter username',
-                ),
-              ),
-              const SizedBox(height: 15,),
-              TextField(
-                controller: password,
-                decoration: InputDecoration(
-                  prefixIcon : const Icon(Icons.password),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12)
-                  ),
-                  labelText: 'Enter password'
-                ),
-              ),
-              const SizedBox(height: 15,),
-              
-              TextButton(
-                onPressed: () {
-                  _forgotPass();  
-                }, 
-                child: Text('Fogot Password')
-                ),
+                                      _chekdata();
 
-              ElevatedButton(
-                onPressed: (){
-                  _chekdata();
-                },
-                child: Text("Login"),
-                style: ElevatedButton.styleFrom(
-                 primary: Colors.green
-                ),
-              ),
-              const SizedBox(height: 10,),
+                                    },
+                                    icon: Icon(
+                                      Icons.arrow_forward,
+                                    )),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                   Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) =>  Registration(),
+                                    )
+                                   ); 
+                                },
+                                child: Text(
+                                  'Sign Up',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Color(0xff4c505b),
+                                      fontSize: 18),
+                                ),
+                                style: ButtonStyle(),
+                              ),
+                              TextButton(
+                                  onPressed: () {
 
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>  Registration(),
+                                    _forgotPass();
+                                    
+                                  },
+                                  child: Text(
+                                    'Forgot Password',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Color(0xff4c505b),
+                                      fontSize: 18,
+                                    ),
+                                  )),
+                            ],
+                          )
+                        ],
+                      ),
                     )
-                  );
-                },
-                 child: Text("don't have an acount"))
-            ]
-          ),
-        )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

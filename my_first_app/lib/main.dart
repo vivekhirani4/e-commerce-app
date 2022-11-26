@@ -18,7 +18,10 @@ class Myapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Catogory(),
+      theme: ThemeData(
+        primarySwatch: Colors.blueGrey
+      ),
+      home: Login(),
     );
   }
 }

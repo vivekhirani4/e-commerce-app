@@ -36,7 +36,7 @@ class _CatogoryState extends State<Catogory> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Catogory list'),
+          title: Text('Catogorys'),
         ),
         body: Center(
           child: Padding(
