@@ -3,8 +3,23 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+// class Get_catogory extends StatelessWidget {
+//   const Get_catogory({super.key , required this.c_id});
+
+//   final c_id;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: ,
+//     );
+//   }
+// }
+
 class CatogoryList extends StatefulWidget {
-  const CatogoryList({super.key});
+  final c_id;
+  const CatogoryList({required this.c_id});
+
 
   @override
   State<CatogoryList> createState() => _CatogoryListState();
@@ -25,7 +40,7 @@ class _CatogoryListState extends State<CatogoryList> {
   Future<List> _fetchCatogoryList() async {
 
      var url = Uri.https('akashsir.in','/myapi/ecom1/api/sub_category_display.php');
-    var response = await http.post(url , body: {'category_id': '1'});
+    var response = await http.post(url , body: {'category_id': widget.c_id});
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
 
@@ -33,7 +48,6 @@ class _CatogoryListState extends State<CatogoryList> {
     mydata = mymap['sub_category'];
 
     return mydata;
-
   }
   @override
   Widget build(BuildContext context) {

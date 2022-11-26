@@ -28,55 +28,57 @@ class _RegistrationState extends State<Registration> {
       body: Container(
         height: double.infinity,
         child: SingleChildScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-
+          physics: const AlwaysScrollableScrollPhysics(),
           child: Center(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 100.0), 
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 100.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Sing Up!',
-                    style:TextStyle(
+                    style: TextStyle(
                         color: Colors.blue[300],
                         fontSize: 20,
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   TextField(
                     controller: username,
                     decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_circle_outlined),
+                        prefixIcon: const Icon(Icons.account_circle_outlined),
                         hintText: 'User Name',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   TextField(
                     controller: email,
                     decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.mail),
+                        prefixIcon: const Icon(Icons.mail),
                         hintText: 'Email',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   TextField(
                     controller: password,
                     obscureText: true,
                     decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.admin_panel_settings_rounded),
+                        prefixIcon:
+                            const Icon(Icons.admin_panel_settings_rounded),
                         hintText: 'Password',
                         suffixIcon: IconButton(
-                            onPressed: () {}, icon: Icon(Icons.remove_red_eye)),
+                            onPressed: () {},
+                            icon: const Icon(Icons.remove_red_eye)),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50))),
                   ),
@@ -87,7 +89,7 @@ class _RegistrationState extends State<Registration> {
                     children: [
                       Expanded(
                         child: RadioListTile(
-                            title: Text("Male"),
+                            title: const Text("Male"),
                             value: "male",
                             groupValue: gender,
                             onChanged: (value) {
@@ -98,7 +100,7 @@ class _RegistrationState extends State<Registration> {
                       ),
                       Expanded(
                           child: RadioListTile(
-                        title: Text("Female"),
+                        title: const Text("Female"),
                         value: "female",
                         groupValue: gender,
                         onChanged: (value) {
@@ -109,78 +111,75 @@ class _RegistrationState extends State<Registration> {
                       ))
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   TextField(
                     controller: mobile,
                     decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.phone),
+                        prefixIcon: const Icon(Icons.phone),
                         hintText: 'Mobile Number',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   TextField(
                     controller: address,
                     decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.location_on_outlined),
+                        prefixIcon: const Icon(Icons.location_on_outlined),
                         hintText: 'Address',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(50))),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
-                   Container(
-                      height: 50,
-                      width: 300,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(255, 88, 105, 235),
-                              Color.fromARGB(255, 68, 65, 147),
-                            ],
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(25.0),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: Offset(2 , 9),
-                            )
-                          ]),
-                      child: Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Catogory(),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            'Sign Up',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontFamily: "Netflix",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 18,
-                              letterSpacing: 0.0,
-                              color: Colors.white,
-                            ),
+                  Container(
+                    height: 50,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 88, 105, 235),
+                            Color.fromARGB(255, 68, 65, 147),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(25.0),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.4),
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            offset: const Offset(2, 9),
+                          )
+                        ]),
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _signup();
+                          });
+                        },
+                        child: const Text(
+                          'Sign Up',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontFamily: "Netflix",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                            letterSpacing: 0.0,
+                            color: Colors.white,
                           ),
                         ),
                       ),
                     ),
+                  ),
                 ],
               ),
             ),
@@ -208,10 +207,11 @@ class _RegistrationState extends State<Registration> {
 
     if (flag == 1) {
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Catogory(),
-          ));
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Catogory(),
+        ),
+      );
     }
   }
 }

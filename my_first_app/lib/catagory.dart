@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -18,37 +18,42 @@ class _CatogoryState extends State<Catogory> {
     super.initState();
     _fetchCategory();
   }
+
   var data = [];
 
   void _fetchCategory() async {
-    var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-view-category.php');
+    var url =
+        Uri.https('akashsir.in', '/myapi/ecom1/api/api-view-category.php');
     var response = await http.get(url);
     print('status code : ${response.statusCode}');
     print('response body : ${response.body}');
 
     Map<String, dynamic> mymap = json.decode(response.body);
     data = mymap['category'];
-    
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Catogory list'),
-      ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(15),
+        appBar: AppBar(
+          title: Text('Catogory list'),
+        ),
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.all(15),
             child: ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
                 return Card(
                   child: ListTile(
                     onTap: () {
+                      var category_id = data[index]['category_id']; 
                       Navigator.push(
-                        context, 
-                        MaterialPageRoute(builder: (context) => CatogoryList(
-                        ),));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CatogoryList(c_id: category_id),
+                        ),
+                      );
                     },
                     trailing: Image.network(data[index]['category_image']),
                     title: Text(data[index]['category_name']),
@@ -56,8 +61,7 @@ class _CatogoryState extends State<Catogory> {
                 );
               },
             ),
-        ),
-      )
-    );
+          ),
+        ));
   }
 }
