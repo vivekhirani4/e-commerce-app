@@ -81,7 +81,7 @@ class _Product_viewState extends State<Product_view>
                 Tab(
                   child: Text('All',
                   style: TextStyle(
-                    fontFamily: 'Cormorant',
+                    fontFamily: "Cormorant",
                     fontSize: 21.0
                   ),
                 ),
