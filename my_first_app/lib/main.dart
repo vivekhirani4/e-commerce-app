@@ -5,6 +5,8 @@ import 'package:my_first_app/login.dart';
 import 'package:my_first_app/registration.dart';
 import 'package:my_first_app/splash_screen.dart';
 
+import 'product_view.dart';
+
 
 
 void main()
@@ -18,10 +20,7 @@ class Myapp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey
-      ),
-      home: Login(),
+      home: Product_view(),
     );
   }
 }
