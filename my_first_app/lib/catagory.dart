@@ -12,6 +12,9 @@ class Catogory extends StatefulWidget {
 }
 
 class _CatogoryState extends State<Catogory> {
+
+  Future? myfuture;
+
   @override
   void initState() {
     // TODO: implement initState

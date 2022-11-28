@@ -94,10 +94,11 @@ class _CatogoryListState extends State<CatogoryList> {
                 title: Text(snapshot.data[index]['sub_category_name']),
                 onTap: () {
                   var s_name = snapshot.data[index]['sub_category_name'];
+                  var s_id = snapshot.data[index]['sub_category_id'];
                   Navigator.push(
                     context, 
                     MaterialPageRoute(
-                      builder: (context) => SubCatagory(s_name : s_name),),);
+                      builder: (context) => SubCatagory(s_name : s_name, s_id : s_id),),);
 
                 },
               ),
