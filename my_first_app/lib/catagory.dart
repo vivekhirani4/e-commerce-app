@@ -38,29 +38,27 @@ class _CatogoryState extends State<Catogory> {
         appBar: AppBar(
           title: Text('Catogorys'),
         ),
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.all(15),
-            child: ListView.builder(
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    onTap: () {
-                      var category_id = data[index]['category_id']; 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CatogoryList(c_id: category_id),
-                        ),
-                      );
-                    },
-                    trailing: Image.network(data[index]['category_image']),
-                    title: Text(data[index]['category_name']),
-                  ),
-                );
-              },
-            ),
+        body: Padding(
+          padding: EdgeInsets.all(15),
+          child: ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: ListTile(
+                  onTap: () {
+                    var category_id = data[index]['category_id']; 
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CatogoryList(c_id: category_id),
+                      ),
+                    );
+                  },
+                  trailing: Image.network(data[index]['category_image']),
+                  title: Text(data[index]['category_name']),
+                ),
+              );
+            },
           ),
         ));
   }

@@ -170,8 +170,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         child: Text('Skip Login'), 
                         style: TextButton.styleFrom(
                           primary: Colors.red[300]
-                        ),
-                        
+                        ),  
                       ),
                     )
                   ],

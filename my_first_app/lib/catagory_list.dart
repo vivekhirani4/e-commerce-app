@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'sub_catagory.dart';
+
 // class Get_catogory extends StatelessWidget {
 //   const Get_catogory({super.key , required this.c_id});
 
@@ -53,7 +55,22 @@ class _CatogoryListState extends State<CatogoryList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('catogory list'),
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        title: Text(
+          'List of products',
+          style: TextStyle(color: Color(0xFF545D68), fontSize: 24),
+        ),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.notifications_none,
+              color: Color(0xFF545D68),
+            ),
+          )
+        ],
       ),
       body: FutureBuilder<dynamic>(
         future: myfuture,
@@ -75,6 +92,14 @@ class _CatogoryListState extends State<CatogoryList> {
                 leading: Image.network(snapshot.data[index]['sub_category_image'],
                 width: 100,),
                 title: Text(snapshot.data[index]['sub_category_name']),
+                onTap: () {
+                  var s_name = snapshot.data[index]['sub_category_name'];
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(
+                      builder: (context) => SubCatagory(s_name : s_name),),);
+
+                },
               ),
             );
           },
