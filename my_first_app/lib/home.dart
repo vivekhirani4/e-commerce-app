@@ -10,9 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   var photos = [
-
     "https://akashsir.in/myapi/ecom1/upload/1651269307jeans.jpg",
     "https://akashsir.in/myapi/ecom1/upload/1651268981shirt1.jpg",
     "https://akashsir.in/myapi/ecom1/upload/1651269296sports1.jpg",
@@ -23,7 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
     "https://akashsir.in/myapi/ecom1/upload/1651294453dress1.jpg",
     "https://akashsir.in/myapi/ecom1/upload/1651645441purse3.jpg",
     "https://akashsir.in/myapi/ecom1/upload/1651646069sling1.jpg"
-
   ];
 
   @override
@@ -35,61 +32,76 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Column(
             children: [
               Container(
-                margin: EdgeInsets.only(right: 12 , left: 12),
+                margin: EdgeInsets.only(right: 12, left: 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.shopping_bag_outlined,color: Color(0xFF545D68)),
+                    Icon(Icons.shopping_bag_outlined, color: Color(0xFF545D68)),
                     Row(
                       children: [
-                        Icon(Icons.search,
-                        color: Color(0xFF545D68)),
-                        SizedBox(height: 20,),
-                        Icon(Icons.notifications_none,
-                        color: Color(0xFF545D68))
+                        Icon(Icons.search, color: Color(0xFF545D68)),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Icon(Icons.notifications_none, color: Color(0xFF545D68))
                       ],
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 20),
-                    child : const Text('Popular Items',
-                    style: TextStyle(
-                      fontSize: 30
-                    ),)
-                  )
+                      margin: EdgeInsets.only(left: 20),
+                      child: const Text(
+                        'Popular Items',
+                        style: TextStyle(fontSize: 30),
+                      ))
                 ],
               ),
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               Container(
                 height: 180,
-                child: PageView.builder(
-                  controller: PageController(viewportFraction: 0.8),
-                  itemCount: photos.length,
-                  itemBuilder: (_, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(
-                          image: NetworkImage(photos[index])
-                        ),
+                child: Stack(children: [
+                  Positioned(
+                    top: 0,
+                    left: -75,
+                    right: 0,
+                    child: Container(
+                      height: 180,
+                      child: PageView.builder(
+                        controller: PageController(viewportFraction: 0.6),
+                        itemCount: photos.length,
+                        itemBuilder: (_, index) {
+                          return Container(
+                            height: 180,
+                            margin: EdgeInsets.only(right: 20),
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(15),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  photos[index],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
+                    ),
                   ),
-
-
+                ]),
               ),
-
-
             ],
-
           ),
-        )),
+        ),
+      ),
     );
   }
 }
