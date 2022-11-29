@@ -58,7 +58,7 @@ class _CatogoryListState extends State<CatogoryList> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         title: Text(
-          'List of products',
+          'List of Catagory',
           style: TextStyle(color: Color(0xFF545D68), fontSize: 24),
         ),
         centerTitle: true,
@@ -72,40 +72,47 @@ class _CatogoryListState extends State<CatogoryList> {
           )
         ],
       ),
-      body: FutureBuilder<dynamic>(
-        future: myfuture,
-        builder: (context, snapshot) {
-          if(!snapshot.hasData)
-          {
-            return Center(child: CircularProgressIndicator(),);
-          }
-          if(snapshot.hasError)
-          {
-            return Center(child: Text('has some error'),
-            );
-          }
-          return ListView.builder(
-          itemCount: snapshot.data.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                leading: Image.network(snapshot.data[index]['sub_category_image'],
-                width: 100,),
-                title: Text(snapshot.data[index]['sub_category_name']),
-                onTap: () {
-                  var s_name = snapshot.data[index]['sub_category_name'];
-                  var s_id = snapshot.data[index]['sub_category_id'];
-                  Navigator.push(
-                    context, 
-                    MaterialPageRoute(
-                      builder: (context) => SubCatagory(s_name : s_name, s_id : s_id),),);
-
-                },
-              ),
-            );
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(10 , 0 , 10 , 0),
+        child: FutureBuilder<dynamic>(
+          future: myfuture,
+          builder: (context, snapshot) {
+            if(!snapshot.hasData)
+            {
+              return Center(child: CircularProgressIndicator(),);
+            }
+            if(snapshot.hasError)
+            {
+              return Center(child: Text('has some error'),
+              );
+            }
+            return ListView.builder(
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: ListTile(
+                  leading: Image.network(snapshot.data[index]['sub_category_image'],
+                  width: 100,),
+                  title: Text(snapshot.data[index]['sub_category_name']),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0)
+                  ),
+                  tileColor: Colors.blueAccent.withOpacity(0.2),
+                  onTap: () {
+                    var s_name = snapshot.data[index]['sub_category_name'];
+                    var s_id = snapshot.data[index]['sub_category_id'];
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => SubCatagory(s_name : s_name, s_id : s_id),),);
+      
+                  },
+                ),
+              );
+            },
+          );
           },
-        );
-        },
+        ),
       ),
     );
   }

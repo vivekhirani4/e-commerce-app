@@ -85,6 +85,9 @@ class _SubCatagoryState extends State<SubCatagory> {
                 title: Text(snapshot.data[index]['product_name']),
                 subtitle: Text(snapshot.data[index]['product_details']),
                 trailing: Text(snapshot.data[index]['product_price']),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),),
+                  tileColor: Colors.blueAccent.withOpacity(0.2),
                 // onTap: () {
                 //   var s_name = snapshot.data[index]['sub_category_name'];
                 //   var s_id = snapshot.data[index]['sub_category_id'];

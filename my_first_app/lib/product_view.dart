@@ -90,6 +90,8 @@ class _Product_viewState extends State<Product_view> {
                   title: Text(mylist[index]['product_name']),
                   subtitle: Text(mylist[index]['sub_category_name']),
                   trailing: Text('\$${mylist[index]['product_price']}'),
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25.0),),
                   onTap: () {
                     var product_name = mylist[index]['product_name'];
                     var sub_category_name = mylist[index]['sub_category_name'];
