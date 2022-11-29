@@ -5,6 +5,7 @@ import 'package:my_first_app/login.dart';
 import 'package:my_first_app/registration.dart';
 import 'package:my_first_app/splash_screen.dart';
 
+import 'home.dart';
 import 'product_view.dart';
 
 
@@ -21,7 +22,7 @@ class Myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: HomeScreen(),
     );
   }
 }

@@ -78,25 +78,27 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             SizedBox(height: 30,),
       
-            Container(
-              child: Text(' Price = \₹ ${widget.price}',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.green
-              ),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(' Price = \₹ ${widget.price}',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green
+                ),
+                ),
+
+                Text(widget.details,
+            style: TextStyle(
+              fontSize: 19,
+              color: Colors.deepPurpleAccent,
             ),
-            SizedBox(height: 30,),
-            Container(
-              alignment: Alignment.center,
-              child : Text(widget.details,
-              style: TextStyle(
-                fontSize: 19,
-                color: Colors.deepPurpleAccent,
-              ),
-              )
             ),
+              ],
+            ),
+            
+            
 
             
           ],
