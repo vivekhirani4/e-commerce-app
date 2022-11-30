@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ProductDetails extends StatefulWidget {
 
@@ -7,6 +10,7 @@ class ProductDetails extends StatefulWidget {
   final sub_name;
   final image;
   final details;
+  final p_id;
 
   const ProductDetails({
     super.key,
@@ -15,6 +19,7 @@ class ProductDetails extends StatefulWidget {
     required this.price,
     required this.image,
     required this.details,
+    required this.p_id
     });
 
   @override
@@ -22,12 +27,28 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  
+  Future? myfuture;
+
+  var mylist = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    myfuture = _fetchProductView();
+  }
 
+  Future<List> _fetchProductView() async {
+    var url = Uri.https('akashsir.in', '/myapi/ecom1/api/api-view-product.php');
+    var response = await http.post(url , body: {'product_id' : widget.p_id});
+    print('Status code = ${response.statusCode}');
+    print('response body = ${response.body}');
+
+    Map<String, dynamic> mymap = json.decode(response.body);
+    mylist = mymap['product']['product_id'];
+
+    return mylist;
   }
   @override
   Widget build(BuildContext context) {

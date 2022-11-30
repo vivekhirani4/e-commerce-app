@@ -77,42 +77,48 @@ class _Product_viewState extends State<Product_view> {
             height: 10,
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: mylist.length,
-              itemBuilder: (context, index) {
-                return Card(
-                    child: ListTile(
-                  tileColor: Colors.blue.withOpacity(0.2),
-                  leading: Image.network(
-                    mylist[index]['product_image'],
-                    width: 50,
-                  ),
-                  title: Text(mylist[index]['product_name']),
-                  subtitle: Text(mylist[index]['sub_category_name']),
-                  trailing: Text('\$${mylist[index]['product_price']}'),
-                  shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),),
-                  onTap: () {
-                    var product_name = mylist[index]['product_name'];
-                    var sub_category_name = mylist[index]['sub_category_name'];
-                    var product_price = mylist[index]['product_price'];
-                    var image = mylist[index]['product_image'];
-                    var details = mylist[index]['product_details'];
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProductDetails(
-                          name : product_name,
-                          sub_name : sub_category_name,
-                          price: product_price,
-                          image: image,
-                          details : details
-                           ),
-                      ),
-                    );
-                  },
-                ),);
+            child: FutureBuilder<dynamic>(
+              future: myfuture,
+              builder: (context, snapshot) {
+               return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                      child: ListTile(
+                    tileColor: Colors.blue.withOpacity(0.2),
+                    leading: Image.network(
+                      snapshot.data[index]['product_image'],
+                      width: 50,
+                    ),
+                    title: Text(snapshot.data[index]['product_name']),
+                    subtitle: Text(snapshot.data[index]['sub_category_name']),
+                    trailing: Text('\$${snapshot.data[index]['product_price']}'),
+                    shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),),
+                    onTap: () {
+                      var product_name = snapshot.data[index]['product_name'];
+                      var sub_category_name = snapshot.data[index]['sub_category_name'];
+                      var product_price = snapshot.data[index]['product_price'];
+                      var image = snapshot.data[index]['product_image'];
+                      var details = snapshot.data[index]['product_details'];
+                      var p_id = snapshot.data[index]['product_id'];
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductDetails(
+                            name : product_name,
+                            sub_name : sub_category_name,
+                            price: product_price,
+                            image: image,
+                            details : details,
+                            p_id: p_id,
+                            ),
+                        ),
+                      );
+                    },
+                  ),);
+                },
+              );
               },
             ),
           ),

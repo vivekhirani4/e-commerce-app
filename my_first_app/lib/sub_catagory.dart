@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'prodect_details.dart';
+
 class SubCatagory extends StatefulWidget {
 
   final s_name;
@@ -39,8 +41,6 @@ class _SubCatagoryState extends State<SubCatagory> {
 
     return mydata;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,20 +83,33 @@ class _SubCatagoryState extends State<SubCatagory> {
                 leading: Image.network(snapshot.data[index]['product_image'],
                 width: 100,),
                 title: Text(snapshot.data[index]['product_name']),
-                subtitle: Text(snapshot.data[index]['product_details']),
                 trailing: Text(snapshot.data[index]['product_price']),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25.0),),
                   tileColor: Colors.blueAccent.withOpacity(0.2),
-                // onTap: () {
-                //   var s_name = snapshot.data[index]['sub_category_name'];
-                //   var s_id = snapshot.data[index]['sub_category_id'];
-                //   Navigator.push(
-                //     context, 
-                //     MaterialPageRoute(
-                //       builder: (context) => SubCatagory(s_name : s_name, s_id : s_id),),);
+                   onTap: () {
+                      var product_name = snapshot.data[index]['product_name'];
+                      var sub_category_name = snapshot.data[index]['sub_category_name'];
+                      var product_price = snapshot.data[index]['product_price'];
+                      var image = snapshot.data[index]['product_image'];
+                      var details = snapshot.data[index]['product_details'];
+                      var p_id = snapshot.data[index]['product_id'];
+            
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductDetails(
+                            name : product_name,
+                            sub_name : sub_category_name,
+                            price: product_price,
+                            image: image,
+                            details : details,
+                            p_id : p_id
+                             ),
+                        ),
+                      );
+                    },
 
-                // },
               ),
             );
           },

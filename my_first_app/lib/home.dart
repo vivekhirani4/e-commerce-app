@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'sub_catagory.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -22,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     "https://akashsir.in/myapi/ecom1/upload/1651645441purse3.jpg",
     "https://akashsir.in/myapi/ecom1/upload/1651646069sling1.jpg"
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                 height: 180,
+
                 child: Stack(children: [
                   Positioned(
                     top: 0,
@@ -80,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (_, index) {
                           return Container(
                             height: 180,
-                            margin: EdgeInsets.only(right: 20),
+                            margin: EdgeInsets.only(right: 20), 
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: Colors.blueAccent,
@@ -90,6 +94,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                   photos[index],
                                 ),
                               ),
+                            ),
+                            child: GestureDetector(
+                              
+                              onTap: () {
+                                var s_name = 'vivek';
+                                var s_id = (index + 1).toString();
+
+                                Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) => SubCatagory(s_name: s_name, s_id : s_id),),);
+                              },
                             ),
                           );
                         },
