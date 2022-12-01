@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 
 import 'sub_catagory.dart';
@@ -12,6 +14,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future? myfuture;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    myfuture = _fetchCatogoryList();
+  }
+
+  var mydata = [];
+  Future<List> _fetchCatogoryList() async {
+    var url =
+        Uri.https('akashsir.in', '/myapi/ecom1/api/sub_category_display.php');
+    var response = await http.get(url);
+    print('response code : ${response.statusCode}');
+    print('response body : ${response.body}');
+
+    Map<String, dynamic> mymap = json.decode(response.body);
+    mydata = mymap['sub_category'];
+
+    return mydata;
+  }
+
   var photos = [
     "https://akashsir.in/myapi/ecom1/upload/1651269307jeans.jpg",
     "https://akashsir.in/myapi/ecom1/upload/1651268981shirt1.jpg",
@@ -22,9 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
     "https://akashsir.in/myapi/ecom1/upload/1651256751watch1.jpg",
     "https://akashsir.in/myapi/ecom1/upload/1651294453dress1.jpg",
     "https://akashsir.in/myapi/ecom1/upload/1651645441purse3.jpg",
-    "https://akashsir.in/myapi/ecom1/upload/1651646069sling1.jpg"
+    "https://akashsir.in/myapi/ecom1/upload/1651646069sling1.jpg",
+    "https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg"
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +95,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                 height: 180,
-
                 child: Stack(children: [
                   Positioned(
                     top: 0,
@@ -79,12 +103,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                       height: 180,
                       child: PageView.builder(
-                        controller: PageController(viewportFraction: 0.6),
+                        controller: PageController(viewportFraction: 0.6, ),
                         itemCount: photos.length,
                         itemBuilder: (_, index) {
                           return Container(
                             height: 180,
-                            margin: EdgeInsets.only(right: 20), 
+                            margin: EdgeInsets.only(right: 20),
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: Colors.blueAccent,
@@ -96,15 +120,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             child: GestureDetector(
-                              
                               onTap: () {
                                 var s_name = 'vivek';
                                 var s_id = (index + 1).toString();
 
                                 Navigator.push(
-                                context, 
-                                MaterialPageRoute(
-                                  builder: (context) => SubCatagory(s_name: s_name, s_id : s_id),),);
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        SubCatagory(s_name: s_name, s_id: s_id),
+                                  ),
+                                );
                               },
                             ),
                           );
@@ -114,6 +140,58 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ]),
               ),
+              
+              SizedBox(
+                height: 15,
+              ),
+              Expanded(
+                child: FutureBuilder<dynamic>(
+                  future: myfuture,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('has some error'),
+                      );
+                    }
+                    return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: ListTile(
+                            leading: Image.network(
+                              photos[index],
+                              width: 100,
+                            ),
+                            title:
+                                Text(snapshot.data[index]['sub_category_name']),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0)),
+                            tileColor: Colors.blueAccent.withOpacity(0.2),
+                            onTap: () {
+                              var s_name =
+                                  snapshot.data[index]['sub_category_name'];
+                              var s_id =
+                                  snapshot.data[index]['sub_category_id'];
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      SubCatagory(s_name: s_name, s_id: s_id),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              )
             ],
           ),
         ),
