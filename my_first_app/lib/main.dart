@@ -8,8 +8,6 @@ import 'package:my_first_app/splash_screen.dart';
 import 'home.dart';
 import 'product_view.dart';
 
-
-
 void main()
 { // await
   runApp(Myapp());
