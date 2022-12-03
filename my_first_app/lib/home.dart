@@ -12,15 +12,9 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   Future? myfuture;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    myfuture = _fetchCatogoryList();
-  }
 
   var mydata = [];
   Future<List> _fetchCatogoryList() async {
@@ -49,6 +43,19 @@ class _HomeScreenState extends State<HomeScreen> {
     "https://akashsir.in/myapi/ecom1/upload/1651646069sling1.jpg",
     "https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg"
   ];
+
+  ScrollController? _scrollController;
+  TabController? _tabController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _scrollController = ScrollController();
+
+    myfuture = _fetchCatogoryList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,54 +158,100 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 15,
               ),
+              // Expanded(
+              //   child: FutureBuilder<dynamic>(
+              //     future: myfuture,
+              //     builder: (context, snapshot) {
+              //       if (!snapshot.hasData) {
+              //         return Center(
+              //           child: CircularProgressIndicator(),
+              //         );
+              //       }
+              //       if (snapshot.hasError) {
+              //         return Center(
+              //           child: Text('has some error'),
+              //         );
+              //       }
+              //       return ListView.builder(
+              //         itemCount: snapshot.data.length,
+              //         itemBuilder: (context, index) {
+              //           return Card(
+              //             child: ListTile(
+              //               leading: Image.network(
+              //                 photos[index],
+              //                 width: 100,
+              //               ),
+              //               title:
+              //                   Text(snapshot.data[index]['sub_category_name']),
+              //               shape: RoundedRectangleBorder(
+              //                   borderRadius: BorderRadius.circular(25.0)),
+              //               tileColor: Colors.blueAccent.withOpacity(0.2),
+              //               onTap: () {
+              //                 var s_name =
+              //                     snapshot.data[index]['sub_category_name'];
+              //                 var s_id =
+              //                     snapshot.data[index]['sub_category_id'];
+              //                 Navigator.push(
+              //                   context,
+              //                   MaterialPageRoute(
+              //                     builder: (context) =>
+              //                         SubCatagory(s_name: s_name, s_id: s_id),
+              //                   ),
+              //                 );
+              //               },
+              //             ),
+              //           );
+              //         },
+              //       );
+              //     },
+              //   ),
+              // )
               Expanded(
-                child: FutureBuilder<dynamic>(
-                  future: myfuture,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    if (snapshot.hasError) {
-                      return Center(
-                        child: Text('has some error'),
-                      );
-                    }
-                    return ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: ListTile(
-                            leading: Image.network(
-                              photos[index],
-                              width: 100,
-                            ),
-                            title:
-                                Text(snapshot.data[index]['sub_category_name']),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0)),
-                            tileColor: Colors.blueAccent.withOpacity(0.2),
-                            onTap: () {
-                              var s_name =
-                                  snapshot.data[index]['sub_category_name'];
-                              var s_id =
-                                  snapshot.data[index]['sub_category_id'];
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      SubCatagory(s_name: s_name, s_id: s_id),
+                  child: NestedScrollView(
+                    controller: _scrollController,
+                    headerSliverBuilder: (context, innerBoxIsScrolled) {
+                      return [
+                        SliverAppBar(
+                          pinned: true,
+                          bottom: PreferredSize(
+                            preferredSize: Size.fromHeight(50),
+                            child: Container(
+                              margin: EdgeInsets.all(0),
+                              child: TabBar(
+                                indicatorPadding: EdgeInsets.all(0),
+                                indicatorSize: TabBarIndicatorSize.label,
+                                labelPadding: EdgeInsets.all(0),
+                                controller: _tabController,
+                                isScrollable: true,
+                                indicator: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.4),
+                                      blurRadius: 7,
+                                      offset: Offset(0,5)
+                                    )
+                                  ]
                                 ),
-                              );
-                            },
+                                tabs: [
+                                  Container(
+                                    child: Text('new'),
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              )
+                        ),
+                        
+                      ];
+                    },
+                    body: TabBarView(
+                      children: [
+                        
+                      ],
+                    ),
+                  ),
+              ),
             ],
           ),
         ),
