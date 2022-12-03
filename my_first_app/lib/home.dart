@@ -102,7 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                       height: 180,
                       child: PageView.builder(
-                        controller: PageController(viewportFraction: 0.6, ),
+                        controller: PageController(
+                          viewportFraction: 0.4,
+                        ),
                         itemCount: photos.length,
                         itemBuilder: (_, index) {
                           return Container(
@@ -110,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             margin: EdgeInsets.only(right: 20),
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                              color: Colors.blueAccent,
+                              // color: Colors.blueAccent,
                               borderRadius: BorderRadius.circular(15),
                               image: DecorationImage(
                                 image: NetworkImage(
@@ -139,7 +141,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ]),
               ),
-              
+              SizedBox(
+                height: 15,
+              ),
+              Divider(
+                color: Colors.grey.withOpacity(0.4),
+                thickness: 2,
+              ),
               SizedBox(
                 height: 15,
               ),
