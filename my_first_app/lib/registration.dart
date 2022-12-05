@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:my_first_app/catagory.dart';
+import 'package:my_first_app/home.dart';
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -208,7 +209,7 @@ class _RegistrationState extends State<Registration> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const Catogory(),
+          builder: (context) => const HomeScreen(),
         ),
       );
     }

@@ -30,8 +30,35 @@ class _CartState extends State<Cart> {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(15),
-      ),
+          padding: EdgeInsets.all(15),
+          child: Container(
+            height: 200,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.network(
+                    'https://akashsir.in/myapi/ecom1/upload/1651269296sports1.jpg'),
+                SizedBox(
+                  width: 5,
+                ),
+                Column(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        'NIKE ledies shoese for running',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    SizedBox(height: 5,),
+
+                  ],
+                ),
+                
+              ],
+            ),
+          )),
     );
   }
 }
