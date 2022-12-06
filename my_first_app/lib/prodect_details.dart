@@ -140,7 +140,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: Text(
                       '${widget.name}',
                       style: TextStyle(fontSize: 18),
-                    ),
+                    ), 
                   ),
                   Text(
                     ' Price = \₹ ${widget.price}',
@@ -190,6 +190,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   setState(() async {
                     SharedPreferences srf =await SharedPreferences.getInstance();
                     u_id = await srf.getString('user_id');
+                    print(u_id);
                     
                     var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-cart-insert.php');
                     var response = await http.post(url, body: {
