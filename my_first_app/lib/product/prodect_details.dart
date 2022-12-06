@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'cart.dart';
+import '../cart.dart';
 
 class ProductDetails extends StatefulWidget {
   final name;

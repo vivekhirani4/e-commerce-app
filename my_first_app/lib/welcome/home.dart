@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 
-import 'sub_catagory.dart';
+import '../product/sub_catagory.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
