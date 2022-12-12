@@ -52,6 +52,8 @@ class _LoginState extends State<Login> {
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
 
+    print('password will send in your email');
+
   }
 
   TextEditingController id = TextEditingController();
@@ -177,7 +179,7 @@ class _LoginState extends State<Login> {
                                       color: Color(0xff4c505b),
                                       fontSize: 18,
                                     ),
-                                  )),
+                                  ),),
                             ],
                           )
                         ],

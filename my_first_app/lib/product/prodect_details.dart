@@ -30,7 +30,6 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   var u_id;
-  var p_qty = 0;
 
   @override
   void initState() {
@@ -41,20 +40,19 @@ class _ProductDetailsState extends State<ProductDetails> {
   void _addcart() async {
     SharedPreferences srf = await SharedPreferences.getInstance();
     u_id = await srf.getString('user_id');
-
-    setState(() async {
-      p_qty++;
+    print(u_id);
       var url =
           Uri.https('akashsir.in', '/myapi/ecom1/api/api-cart-insert.php');
       var response = await http.post(url, body: {
         'user_id': u_id,
         'product_id': widget.p_id,
-        'product_qty': p_qty
+        'product_qty': '1'
       });
 
       print(response.body);
       Map<String, dynamic> mymap = json.decode(response.body);
-      var flag = mymap['flag'] as int;
+      var result = mymap['flag'];
+      int flag = int.parse(result);
 
       if (flag == 1) {
         Navigator.push(
@@ -73,7 +71,6 @@ class _ProductDetailsState extends State<ProductDetails> {
             textColor: Colors.white,
             fontSize: 16.0);
       }
-    });
   }
 
   @override
@@ -185,31 +182,31 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // _addcart();
+                  _addcart();
 
-                  setState(() async {
-                    SharedPreferences srf =await SharedPreferences.getInstance();
-                    u_id = await srf.getString('user_id');
-                    print(u_id);
+                  // setState(() async {
+                  //   SharedPreferences srf =await SharedPreferences.getInstance();
+                  //   u_id = await srf.getString('user_id');
+                  //   print(u_id);
                     
-                    var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-cart-insert.php');
-                    var response = await http.post(url, body: {
-                      'user_id': u_id,
-                      'product_id': widget.p_id,
-                      'product_qty': p_qty
-                    });
+                  //   var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-cart-insert.php');
+                  //   var response = await http.post(url, body: {
+                  //     'user_id': u_id,
+                  //     'product_id': widget.p_id,
+                  //     'product_qty': p_qty
+                  //   });
 
-                    print(response.body);
-                    Map<String, dynamic> mymap = json.decode(response.body);
-                    var flag = mymap['flag'] as int;
-                    print(flag);
+                  //   print(response.body);
+                  //   Map<String, dynamic> mymap = json.decode(response.body);
+                  //   var flag = mymap['flag'] as int;
+                  //   print(flag);
 
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Cart(),
-                        ));
-                  });
+                  //   Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => Cart(),
+                  //       ));
+                  // });
                 },
                 child: Text('Add to Cart'),
                 style: ElevatedButton.styleFrom(
