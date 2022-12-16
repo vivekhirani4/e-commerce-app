@@ -168,9 +168,7 @@ class _LoginState extends State<Login> {
                               ),
                               TextButton(
                                   onPressed: () {
-
                                     _forgotPass();
-                                    
                                   },
                                   child: Text(
                                     'Forgot Password',

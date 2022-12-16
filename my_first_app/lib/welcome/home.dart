@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
+
   Future? myfuture;
 
   var mydata = [];
@@ -131,7 +132,6 @@ class _HomeScreenState extends State<HomeScreen>
                               onTap: () {
                                 var s_name = 'vivek';
                                 var s_id = (index + 1).toString();
-
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

@@ -5,20 +5,15 @@ import 'dart:convert';
 import 'prodect_details.dart';
 
 class SubCatagory extends StatefulWidget {
-
   final s_name;
   final s_id;
-  const SubCatagory({
-    super.key,
-    required this.s_name,
-    required this.s_id});
+  const SubCatagory({super.key, required this.s_name, required this.s_id});
 
   @override
   State<SubCatagory> createState() => _SubCatagoryState();
 }
 
 class _SubCatagoryState extends State<SubCatagory> {
-
   Future? myfuture;
 
   @override
@@ -30,13 +25,12 @@ class _SubCatagoryState extends State<SubCatagory> {
 
   var mydata = [];
   Future<List> _fetchCatogoryList() async {
-
-     var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-view-product.php');
-    var response = await http.post(url , body: {'sub_category_id': widget.s_id});
+    var url = Uri.https('akashsir.in', '/myapi/ecom1/api/api-view-product.php');
+    var response = await http.post(url, body: {'sub_category_id': widget.s_id});
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
 
-    Map<String , dynamic> mymap = json.decode(response.body);
+    Map<String, dynamic> mymap = json.decode(response.body);
     mydata = mymap['product'];
 
     return mydata;
@@ -66,54 +60,57 @@ class _SubCatagoryState extends State<SubCatagory> {
       body: FutureBuilder<dynamic>(
         future: myfuture,
         builder: (context, snapshot) {
-          if(!snapshot.hasData)
-          {
-            return Center(child: CircularProgressIndicator(),);
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
-          if(snapshot.hasError)
-          {
-            return Center(child: Text('has some error'),
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('has some error'),
             );
           }
           return ListView.builder(
-          itemCount: snapshot.data.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                leading: Image.network(snapshot.data[index]['product_image'],
-                width: 100,),
-                title: Text(snapshot.data[index]['product_name']),
-                trailing: Text(snapshot.data[index]['product_price']),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),),
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: ListTile(
+                  leading: Image.network(
+                    snapshot.data[index]['product_image'],
+                    width: 100,
+                  ),
+                  title: Text(snapshot.data[index]['product_name']),
+                  trailing: Text(snapshot.data[index]['product_price']),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
                   tileColor: Colors.blueAccent.withOpacity(0.2),
-                   onTap: () {
-                      var product_name = snapshot.data[index]['product_name'];
-                      var sub_category_name = snapshot.data[index]['sub_category_name'];
-                      var product_price = snapshot.data[index]['product_price'];
-                      var image = snapshot.data[index]['product_image'];
-                      var details = snapshot.data[index]['product_details'];
-                      var p_id = snapshot.data[index]['product_id'];
-            
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductDetails(
-                            name : product_name,
-                            sub_name : sub_category_name,
+                  onTap: () {
+                    var product_name = snapshot.data[index]['product_name'];
+                    var sub_category_name =
+                        snapshot.data[index]['sub_category_name'];
+                    var product_price = snapshot.data[index]['product_price'];
+                    var image = snapshot.data[index]['product_image'];
+                    var details = snapshot.data[index]['product_details'];
+                    var p_id = snapshot.data[index]['product_id'];
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetails(
+                            name: product_name,
+                            sub_name: sub_category_name,
                             price: product_price,
                             image: image,
-                            details : details,
-                            p_id : p_id
-                             ),
-                        ),
-                      );
-                    },
-
-              ),
-            );
-          },
-        );
+                            details: details,
+                            p_id: p_id),
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
+          );
         },
       ),
     );

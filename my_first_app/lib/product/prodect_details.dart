@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
-
 import '../cart.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -69,7 +68,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             timeInSecForIosWeb: 2,
             backgroundColor: Colors.black,
             textColor: Colors.white,
-            fontSize: 16.0);
+            fontSize: 16.0
+            );
       }
   }
 
