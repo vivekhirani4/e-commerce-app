@@ -25,13 +25,14 @@ class _LoginState extends State<Login> {
     print('response body : ${response.body}');
 
     var data = json.decode(response.body);
-    var flag = data['flag'] as int;
-    print('flag = ${flag}');
-    var u_id = data['userdata']['user_id'];
+    var value = data['flag'];
+    int flag = int.parse(value);
+    
+
+    var u_id = data['user_id'];
     print('user id = ${u_id}');
 
     SharedPreferences srf = await SharedPreferences.getInstance();
-    await srf.setInt('flag' , flag);
     await srf.setString('user_id', u_id);
 
     setState(() {
@@ -44,6 +45,14 @@ class _LoginState extends State<Login> {
       }
     });
 
+  }
+
+   bool _isHidden = true;
+
+  void _passwordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 
   void _forgotPass() async {
@@ -106,8 +115,14 @@ class _LoginState extends State<Login> {
                           TextField(
                             controller: password,
                             style: TextStyle(),
-                            obscureText: true,
+                            obscureText: _isHidden,
                             decoration: InputDecoration(
+                              suffix: InkWell(
+                            onTap: _passwordView,
+                            child : Icon(_isHidden ?
+                                    Icons.visibility :
+                                    Icons.visibility_off)
+                          ),
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
                                 hintText: "Password",

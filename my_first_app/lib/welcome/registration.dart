@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:my_first_app/product/catagory.dart';
 import 'package:my_first_app/welcome/home.dart';
+import 'package:my_first_app/welcome/login.dart';
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -12,6 +13,9 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
+
+  var massage = ' ';
+
   var data;
 
   TextEditingController username = TextEditingController();
@@ -21,6 +25,8 @@ class _RegistrationState extends State<Registration> {
   TextEditingController address = TextEditingController();
 
   String? gender;
+
+  bool _isHidden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -69,18 +75,24 @@ class _RegistrationState extends State<Registration> {
                   const SizedBox(
                     height: 10,
                   ),
-                  TextField(
-                    controller: password,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        prefixIcon:
-                            const Icon(Icons.admin_panel_settings_rounded),
-                        hintText: 'Password',
-                        suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.remove_red_eye)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(50))),
+                  SizedBox(
+                    height: 60,
+                    child: TextField(
+                      controller: password,
+                      obscureText: _isHidden,
+                      decoration: InputDecoration(
+                          prefixIcon:
+                              const Icon(Icons.admin_panel_settings_rounded),
+                          hintText: 'Password',
+                          suffix: InkWell(
+                            onTap: _passwordView,
+                            child : Icon(_isHidden ?
+                                    Icons.visibility :
+                                    Icons.visibility_off)
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50))),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -180,6 +192,9 @@ class _RegistrationState extends State<Registration> {
                       ),
                     ),
                   ),
+                  Container(
+                    child: Text(massage),
+                  )
                 ],
               ),
             ),
@@ -187,6 +202,12 @@ class _RegistrationState extends State<Registration> {
         ),
       ),
     );
+  }
+
+  void _passwordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 
   void _signup() async {
@@ -203,13 +224,15 @@ class _RegistrationState extends State<Registration> {
     print('response body : ${response.body}');
 
     Map<String, dynamic> mymap = json.decode(response.body);
-    int flag = mymap['flag'];
+    var value = mymap['flag'];
+
+    int flag = int.parse(value);
 
     if (flag == 1) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
+          builder: (context) => const Login(),
         ),
       );
     }

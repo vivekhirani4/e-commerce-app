@@ -178,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen>
                         return Card(
                           child: ListTile(
                             leading: Image.network(
-                              photos[index],
+                              snapshot.data[index]['sub_category_image'],
                               width: 100,
                             ),
                             title:
@@ -205,8 +205,7 @@ class _HomeScreenState extends State<HomeScreen>
                     );
                   },
                 ),
-              )
-              
+              )   
             ],
           ),
         ),

@@ -30,6 +30,31 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   var u_id;
 
+  
+  int count = 1;
+  TextEditingController quantity = new TextEditingController();
+
+  void _incrementCount() {
+    setState(() {
+      count = count + 1;
+    });
+  }
+
+  void _decreseCount(){
+    setState(() {
+
+      if(count>1)
+      {
+        count = count - 1;
+      }
+      else{
+        count = 1;
+      }
+      
+    });
+  }
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -39,21 +64,22 @@ class _ProductDetailsState extends State<ProductDetails> {
   void _addcart() async {
     SharedPreferences srf = await SharedPreferences.getInstance();
     u_id = await srf.getString('user_id');
-    print(u_id);
+    var qty = quantity.text;
+    print('quantity = ${qty}');
+    print('user id = ${u_id}');
       var url =
           Uri.https('akashsir.in', '/myapi/ecom1/api/api-cart-insert.php');
       var response = await http.post(url, body: {
         'user_id': u_id,
         'product_id': widget.p_id,
-        'product_qty': '1'
+        'product_qty': '${count}'
       });
 
       print(response.body);
       Map<String, dynamic> mymap = json.decode(response.body);
       var result = mymap['flag'];
-      int flag = int.parse(result);
-
-      if (flag == 1) {
+      
+      
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -70,7 +96,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             textColor: Colors.white,
             fontSize: 16.0
             );
-      }
+      
   }
 
   @override
@@ -178,41 +204,35 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 15,
               ),
+              Row(
+                children: [
+                  IconButton(onPressed: () {
+                    _decreseCount();
+                  },
+                   icon: Icon(Icons.minimize),),
+
+                  Text('$count' ),
+
+                  IconButton(onPressed: () {
+                    _incrementCount();
+                  }, icon: Icon(Icons.add))
+
+                ],
+              ),
+              SizedBox(height: 5,),
               ElevatedButton(
                 onPressed: () {
                   _addcart();
 
-                  // setState(() async {
-                  //   SharedPreferences srf =await SharedPreferences.getInstance();
-                  //   u_id = await srf.getString('user_id');
-                  //   print(u_id);
-                    
-                  //   var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-cart-insert.php');
-                  //   var response = await http.post(url, body: {
-                  //     'user_id': u_id,
-                  //     'product_id': widget.p_id,
-                  //     'product_qty': p_qty
-                  //   });
-
-                  //   print(response.body);
-                  //   Map<String, dynamic> mymap = json.decode(response.body);
-                  //   var flag = mymap['flag'] as int;
-                  //   print(flag);
-
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (context) => Cart(),
-                  //       ));
-                  // });
                 },
                 child: Text('Add to Cart'),
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size(390, 48),
                     primary: Colors.yellow[600]),
               ),
+
             ],
           ),
         ),
