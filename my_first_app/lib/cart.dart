@@ -91,31 +91,24 @@ class _CartState extends State<Cart> {
                               '${snapshot.data[index]['product_name']}',
                               style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                             ),
-                            subtitle: Text('${snapshot.data[index]['product_details']}'),
-                            trailing: Column(
-                              children: [
-                                Text(
+                            subtitle:  Text(
                                   'Qty = ${snapshot.data[index]['product_qty']} \n \n ₹ ${snapshot.data[index]['product_price']}',
                                   style: TextStyle(color: Colors.green),
                                 ),
-                                Expanded(
-                                  child: IconButton(
-                                    onPressed: () async {
-                                      var cart_id = snapshot.data[index]['cart_id'];
+                            trailing: IconButton(
+                              onPressed: () async {
+                                var cart_id = snapshot.data[index]['cart_id'];
             
-                                      var url = Uri.https('akashsir.in',
-                                          '/myapi/ecom1/api/api-cart-remove-product.php');
-                                      var response = await http
-                                          .post(url, body: {'cart_id': cart_id});
-                                          print('response body = ${response.body}');
+                                var url = Uri.https('akashsir.in',
+                                    '/myapi/ecom1/api/api-cart-remove-product.php');
+                                var response = await http
+                                    .post(url, body: {'cart_id': cart_id});
+                                    print('response body = ${response.body}');
             
-                                      print('removed successfully ${snapshot.data[index]['product_name']}');
-                                    },
-                                    icon: Icon(Icons.remove_circle_outline_rounded),
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ],
+                                print('removed successfully ${snapshot.data[index]['product_name']}');
+                              },
+                              icon: Icon(Icons.remove_circle_outline_rounded),
+                              color: Colors.red,
                             ),
                           ),
                         ),

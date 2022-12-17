@@ -225,14 +225,12 @@ class _ProductDetailsState extends State<ProductDetails> {
               ElevatedButton(
                 onPressed: () {
                   _addcart();
-
                 },
                 child: Text('Add to Cart'),
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size(390, 48),
                     primary: Colors.yellow[600]),
               ),
-
             ],
           ),
         ),
