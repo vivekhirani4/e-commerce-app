@@ -30,7 +30,6 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   var u_id;
 
-  
   int count = 1;
   TextEditingController quantity = new TextEditingController();
 
@@ -40,20 +39,15 @@ class _ProductDetailsState extends State<ProductDetails> {
     });
   }
 
-  void _decreseCount(){
+  void _decreseCount() {
     setState(() {
-
-      if(count>1)
-      {
+      if (count > 1) {
         count = count - 1;
-      }
-      else{
+      } else {
         count = 1;
       }
-      
     });
   }
-
 
   @override
   void initState() {
@@ -67,36 +61,32 @@ class _ProductDetailsState extends State<ProductDetails> {
     var qty = quantity.text;
     print('quantity = ${qty}');
     print('user id = ${u_id}');
-      var url =
-          Uri.https('akashsir.in', '/myapi/ecom1/api/api-cart-insert.php');
-      var response = await http.post(url, body: {
-        'user_id': u_id,
-        'product_id': widget.p_id,
-        'product_qty': '${count}'
-      });
+    var url = Uri.https('akashsir.in', '/myapi/ecom1/api/api-cart-insert.php');
+    var response = await http.post(url, body: {
+      'user_id': u_id,
+      'product_id': widget.p_id,
+      'product_qty': '${count}'
+    });
 
-      print(response.body);
-      Map<String, dynamic> mymap = json.decode(response.body);
-      var result = mymap['flag'];
-      
-      
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Cart(),
-          ),
-        );
+    print(response.body);
+    Map<String, dynamic> mymap = json.decode(response.body);
+    var result = mymap['flag'];
 
-        Fluttertoast.showToast(
-            msg: "${widget.name} is added into cart",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 2,
-            backgroundColor: Colors.black,
-            textColor: Colors.white,
-            fontSize: 16.0
-            );
-      
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Cart(),
+      ),
+    );
+
+    Fluttertoast.showToast(
+        msg: "${widget.name} is added into cart",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 2,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   @override
@@ -163,7 +153,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: Text(
                       '${widget.name}',
                       style: TextStyle(fontSize: 18),
-                    ), 
+                    ),
                   ),
                   Text(
                     ' Price = \₹ ${widget.price}',
@@ -208,20 +198,24 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
               Row(
                 children: [
-                  IconButton(onPressed: () {
-                    _decreseCount();
-                  },
-                   icon: Icon(Icons.minimize),),
-
-                  Text('$count' ),
-
-                  IconButton(onPressed: () {
-                    _incrementCount();
-                  }, icon: Icon(Icons.add))
-
+                  IconButton(
+                    onPressed: () {
+                      _decreseCount();
+                    },
+                    icon: Icon(Icons.minimize),
+                  ),
+                  Text('$count'),
+                  IconButton(
+                    onPressed: () {
+                      _incrementCount();
+                    },
+                    icon: Icon(Icons.add),
+                  )
                 ],
               ),
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               ElevatedButton(
                 onPressed: () {
                   _addcart();
