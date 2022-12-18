@@ -15,19 +15,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
-   var mylist = [];
+  var mylist = [];
 
   void _chekdata() async {
-    var url = Uri.https('akashsir.in','myapi/ecom1/api/api-login.php');
-    var response = await http.post(url, body: {'user_email': id.text,'user_password':password.text});
+    var url = Uri.https('akashsir.in', 'myapi/ecom1/api/api-login.php');
+    var response = await http.post(url,
+        body: {'user_email': id.text, 'user_password': password.text});
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
 
     var data = json.decode(response.body);
     var value = data['flag'];
     int flag = int.parse(value);
-    
 
     var u_id = data['user_id'];
     print('user id = ${u_id}');
@@ -36,18 +35,17 @@ class _LoginState extends State<Login> {
     await srf.setString('user_id', u_id);
 
     setState(() {
-      if(flag == 1){
+      if (flag == 1) {
         Navigator.push(
-          context, MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          )
-        );
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ));
       }
     });
-
   }
 
-   bool _isHidden = true;
+  bool _isHidden = true;
 
   void _passwordView() {
     setState(() {
@@ -56,18 +54,18 @@ class _LoginState extends State<Login> {
   }
 
   void _forgotPass() async {
-    var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-forgot-password.php');
-    var response = await http.post(url , body: {'user_email' : id.text});
+    var url =
+        Uri.https('akashsir.in', '/myapi/ecom1/api/api-forgot-password.php');
+    var response = await http.post(url, body: {'user_email': id.text});
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
 
     print('password will send in your email');
-
   }
 
   TextEditingController id = TextEditingController();
   TextEditingController password = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -117,12 +115,11 @@ class _LoginState extends State<Login> {
                             style: TextStyle(),
                             obscureText: _isHidden,
                             decoration: InputDecoration(
-                              suffix: InkWell(
-                            onTap: _passwordView,
-                            child : Icon(_isHidden ?
-                                    Icons.visibility :
-                                    Icons.visibility_off)
-                          ),
+                                suffix: InkWell(
+                                    onTap: _passwordView,
+                                    child: Icon(_isHidden
+                                        ? Icons.visibility
+                                        : Icons.visibility_off)),
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
                                 hintText: "Password",
@@ -147,9 +144,7 @@ class _LoginState extends State<Login> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
-
                                       _chekdata();
-
                                     },
                                     icon: Icon(
                                       Icons.arrow_forward,
@@ -165,11 +160,11 @@ class _LoginState extends State<Login> {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                   Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) =>  Registration(),
-                                    )
-                                   ); 
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Registration(),
+                                      ));
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -182,17 +177,18 @@ class _LoginState extends State<Login> {
                                 style: ButtonStyle(),
                               ),
                               TextButton(
-                                  onPressed: () {
-                                    _forgotPass();
-                                  },
-                                  child: Text(
-                                    'Forgot Password',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18,
-                                    ),
-                                  ),),
+                                onPressed: () {
+                                  _forgotPass();
+                                },
+                                child: Text(
+                                  'Forgot Password',
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Color(0xff4c505b),
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
                             ],
                           )
                         ],

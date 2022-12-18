@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_app/order/add_order.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -121,7 +122,12 @@ class _CartState extends State<Cart> {
             SizedBox(height: 10,),
             ElevatedButton(
               onPressed: (){
-                
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrderPlace(
+                      total : total
+                    ),));
               },
                child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
