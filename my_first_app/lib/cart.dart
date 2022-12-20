@@ -135,7 +135,10 @@ class _CartState extends State<Cart> {
                   Text('Place order'),
                   Text('Total ${total}')  
                 ],
-               ))
+               ),
+               style: ElevatedButton.styleFrom(
+                primary: Color.fromARGB(255, 232, 189, 17)
+              ),)
           ],
         ),
       ),
