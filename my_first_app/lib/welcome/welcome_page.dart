@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_app/product/catagory.dart';
+import 'package:my_first_app/welcome/dashboard.dart';
 import 'package:my_first_app/welcome/home.dart';
 import 'package:my_first_app/welcome/login.dart';
 import 'package:my_first_app/welcome/registration.dart';
@@ -163,7 +164,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
+                                builder: (context) => DashBoardScreen(),
                               ),
                             );
                         },
