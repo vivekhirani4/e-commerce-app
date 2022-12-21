@@ -168,7 +168,7 @@ class _OrderPlaceState extends State<OrderPlace> {
                 ],
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 232, 112, 19)
+                backgroundColor: Color.fromARGB(255, 232, 112, 19)
               ),
             )
           ],

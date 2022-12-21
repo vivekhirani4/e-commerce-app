@@ -42,9 +42,26 @@ class _HomeScreenState extends State<HomeScreen>
     "https://akashsir.in/myapi/ecom1/upload/1651294453dress1.jpg",
     "https://akashsir.in/myapi/ecom1/upload/1651645441purse3.jpg",
     "https://akashsir.in/myapi/ecom1/upload/1651646069sling1.jpg",
-    "https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg"
+    "https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg",
+    'https://akashsir.in/myapi/ecom1/upload/16709377231.png',
+    'https://akashsir.in/myapi/ecom1/upload/16715373044l.png'
   ];
 
+  var discount = [
+    '30% off',
+    '32% off',
+    '35% off',
+    '32% off',
+    '36% off',
+    '23% off',
+    '26% off',
+    '43% off',
+    '45% off',
+    '36% off',
+    '22% off',
+    '52% off',
+    '32% off',
+  ];
   ScrollController? _scrollController;
   TabController? _tabController;
 
@@ -156,7 +173,17 @@ class _HomeScreenState extends State<HomeScreen>
                 thickness: 2,
               ),
               SizedBox(
-                height: 15,
+                height: 10,
+              ),
+
+              Text('All Items',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+              ),),
+              SizedBox(
+                height: 10,
               ),
               Expanded(
                 child: FutureBuilder<dynamic>(
@@ -178,7 +205,7 @@ class _HomeScreenState extends State<HomeScreen>
                         return Card(
                           child: ListTile(
                             leading: Image.network(
-                              snapshot.data[index]['sub_category_image'],
+                              photos[index],
                               width: 100,
                             ),
                             title:
@@ -186,6 +213,10 @@ class _HomeScreenState extends State<HomeScreen>
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25.0)),
                             tileColor: Colors.blueAccent.withOpacity(0.2),
+                            trailing: Text(discount[index],
+                            style: TextStyle(
+                              color: Colors.green
+                            ),),
                             onTap: () {
                               var s_name =
                                   snapshot.data[index]['sub_category_name'];
