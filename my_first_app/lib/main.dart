@@ -8,6 +8,7 @@ import 'package:my_first_app/welcome/splash_screen.dart';
 import 'order/add_order.dart';
 import 'welcome/home.dart';
 import 'product/product_view.dart';
+import 'welcome/profile.dart';
 
 void main()
 { // await
@@ -21,7 +22,7 @@ class Myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: Profile(),
     );
   }
 }
