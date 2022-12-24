@@ -58,7 +58,7 @@ class _CatogoryListState extends State<CatogoryList> {
         backgroundColor: Colors.white,
         elevation: 0.0,
         title: Text(
-          'List of Catagory',
+          'List of Catagory Items',
           style: TextStyle(color: Color(0xFF545D68), fontSize: 24),
         ),
         centerTitle: true,

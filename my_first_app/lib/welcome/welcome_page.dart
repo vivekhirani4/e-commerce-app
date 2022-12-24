@@ -29,7 +29,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   'Welcome!',
                   style: TextStyle(
                     fontSize: 30,
-                    // color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

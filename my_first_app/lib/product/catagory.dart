@@ -30,7 +30,7 @@ class _CatogoryState extends State<Catogory> {
     print('response body : ${response.body}');
 
     Map<String, dynamic> mymap = json.decode(response.body);
-    data = mymap['category'];
+    data = mymap['category_list'];
 
     return data;
   }
@@ -87,7 +87,7 @@ class _CatogoryState extends State<Catogory> {
                       );
                     },
                     trailing: Image.network(snapshot.data[index]['category_image']),
-                    title: Text(data[index]['category_name']),
+                    title: Text(snapshot.data[index]['category_name']),
                     shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50)),
                     tileColor: Colors.blueAccent.withOpacity(0.2),

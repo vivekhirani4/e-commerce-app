@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DashBoardScreen(),
+              builder: (context) => Catogory(),
             ));
       }
     });
@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
                                     onTap: _passwordView,
                                     child: Icon(_isHidden
                                         ? Icons.visibility
-                                        : Icons.visibility_off)),
+                                        : Icons.visibility_off),),
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
                                 hintText: "Password",

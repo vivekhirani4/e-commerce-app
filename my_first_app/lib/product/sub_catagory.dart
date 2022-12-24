@@ -25,13 +25,13 @@ class _SubCatagoryState extends State<SubCatagory> {
 
   var mydata = [];
   Future<List> _fetchCatogoryList() async {
-    var url = Uri.https('akashsir.in', '/myapi/ecom1/api/api-view-product.php');
+    var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-view-product.php');
     var response = await http.post(url, body: {'sub_category_id': widget.s_id});
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
 
     Map<String, dynamic> mymap = json.decode(response.body);
-    mydata = mymap['product'];
+    mydata = mymap['product_list'];
 
     return mydata;
   }
