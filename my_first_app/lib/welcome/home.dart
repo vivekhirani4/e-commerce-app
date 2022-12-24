@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
+import 'package:my_first_app/product/catagory_list.dart';
 
 import '../product/sub_catagory.dart';
 
@@ -14,13 +15,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-
   Future? myfuture;
+  Future? categoryList;
 
   var mydata = [];
-  Future<List> _fetchCatogoryList() async {
+
+  var category = [];
+  Future<List> _fetchSubCatogoryList() async {
     var url =
-        Uri.https('akashsir.in', '/myapi/ecom1/api/sub_category_display.php');
+        Uri.https('akashsir.in', '/myapi/ecom1/api/api-subcategory-list.php');
     var response = await http.get(url);
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
@@ -65,6 +68,19 @@ class _HomeScreenState extends State<HomeScreen>
   ScrollController? _scrollController;
   TabController? _tabController;
 
+  Future<List> _fetchCatogoryList() async {
+    var url =
+        Uri.https('akashsir.in', '/myapi/ecom1/api/api-view-category.php');
+    var response = await http.get(url);
+    print('response code : ${response.statusCode}');
+    print('response body : ${response.body}');
+
+    Map<String, dynamic> mymap = json.decode(response.body);
+    category = mymap['category_list'];
+
+    return category;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -72,7 +88,9 @@ class _HomeScreenState extends State<HomeScreen>
     _tabController = TabController(length: 3, vsync: this);
     _scrollController = ScrollController();
 
-    myfuture = _fetchCatogoryList();
+    categoryList = _fetchCatogoryList();
+
+    myfuture = _fetchSubCatogoryList();
   }
 
   @override
@@ -118,49 +136,65 @@ class _HomeScreenState extends State<HomeScreen>
                 height: 15,
               ),
               Container(
-                height: 180,
+                height: 160,
                 child: Stack(children: [
                   Positioned(
                     top: 0,
                     left: -75,
                     right: 0,
-                    child: Container(
-                      height: 180,
-                      child: PageView.builder(
-                        controller: PageController(
-                          viewportFraction: 0.4,
-                        ),
-                        itemCount: photos.length,
-                        itemBuilder: (_, index) {
-                          return Container(
-                            height: 180,
-                            margin: EdgeInsets.only(right: 20),
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              // color: Colors.blueAccent,
-                              borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  photos[index],
+                    child: FutureBuilder<dynamic>(
+                      future: myfuture,
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text('has some error'),
+                      );
+                    }
+                      return Container(
+                        height: 140,
+                        child: PageView.builder(
+                          controller: PageController(
+                            viewportFraction: 0.4,
+                          ),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (_, index) {
+                            return Container(
+                              height: 180,
+                              margin: EdgeInsets.only(right: 20),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                // color: Colors.blueAccent,
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    snapshot.data[index]['sub_category_image'],
+                                  ),
+                                  fit: BoxFit.fitHeight,
                                 ),
                               ),
-                            ),
-                            child: GestureDetector(
-                              onTap: () {
-                                var s_name = 'vivek';
-                                var s_id = (index + 1).toString();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        SubCatagory(s_name: s_name, s_id: s_id),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  var s_name = 'vivek';
+                                  var s_id = (index + 1).toString();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          SubCatagory(s_name: s_name, s_id: s_id),
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                      },
                     ),
                   ),
                 ]),
@@ -175,19 +209,19 @@ class _HomeScreenState extends State<HomeScreen>
               SizedBox(
                 height: 10,
               ),
-
-              Text('All Items',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 20,
-                fontWeight: FontWeight.bold
-              ),),
+              Text(
+                'Category',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
               SizedBox(
                 height: 10,
               ),
               Expanded(
                 child: FutureBuilder<dynamic>(
-                  future: myfuture,
+                  future: categoryList,
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return Center(
@@ -199,44 +233,59 @@ class _HomeScreenState extends State<HomeScreen>
                         child: Text('has some error'),
                       );
                     }
-                    return ListView.builder(
-                      itemCount: snapshot.data.length,
+                    return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                          itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
-                        return Card(
-                          child: ListTile(
-                            leading: Image.network(
-                              photos[index],
-                              width: 100,
+                        return GestureDetector(
+                          onTap: () {
+                            var c_id = snapshot.data[index]['category_id'];
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CatogoryList(
+                                  c_id: c_id,
+                                ),),);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              // color: Colors.grey.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 8,
+                                  color: Colors.grey.withOpacity(0.2),
+                                  offset: Offset(-1, 5),
+                                  spreadRadius: 2
+                                )
+                              ]
                             ),
-                            title:
-                                Text(snapshot.data[index]['sub_category_name']),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0)),
-                            tileColor: Colors.blueAccent.withOpacity(0.2),
-                            trailing: Text(discount[index],
-                            style: TextStyle(
-                              color: Colors.green
-                            ),),
-                            onTap: () {
-                              var s_name =
-                                  snapshot.data[index]['sub_category_name'];
-                              var s_id =
-                                  snapshot.data[index]['sub_category_id'];
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      SubCatagory(s_name: s_name, s_id: s_id),
-                                ),
-                              );
-                            },
+                            margin: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(10),
+                            child: Expanded(
+                              child: Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(snapshot.data[index]['category_image'],
+                                    fit: BoxFit.fitHeight,
+                                    height: 130,),
+                                  ),
+                                  Text(snapshot.data[index]['category_name'],
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  ),)
+                                ],
+                              ),
+                            ),
                           ),
                         );
                       },
                     );
                   },
                 ),
-              )   
+              )
             ],
           ),
         ),

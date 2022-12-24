@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_first_app/order/cart.dart';
 import 'package:my_first_app/product/catagory.dart';
 import 'package:my_first_app/product/catagory_list.dart';
+import 'package:my_first_app/welcome/dashboard.dart';
 import 'package:my_first_app/welcome/login.dart';
 import 'package:my_first_app/welcome/registration.dart';
 import 'package:my_first_app/welcome/splash_screen.dart';
@@ -22,7 +23,7 @@ class Myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Profile(),
+      home: DashBoardScreen(),
     );
   }
 }
