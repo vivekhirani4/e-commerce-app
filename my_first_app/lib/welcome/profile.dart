@@ -43,7 +43,7 @@ class _ProfileState extends State<Profile> {
     var mymap = json.decode(response.body);
 
     name = mymap['user_name'];
-    mobile = mymap['7621845339'];
+    mobile = mymap['user_mobile'];
     email = mymap['user_email'];
     addres = mymap['user_address'];
     gender = mymap['user_gender'];

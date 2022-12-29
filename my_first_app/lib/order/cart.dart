@@ -32,7 +32,7 @@ class _CartState extends State<Cart> {
 
     Map<String, dynamic> mymap = json.decode(response.body);
 
-    mylist = mymap['cart'];
+    mylist = mymap['cart_list'];
 
     total = mymap['grand_total'];
 
@@ -107,6 +107,10 @@ class _CartState extends State<Cart> {
                                     print('response body = ${response.body}');
             
                                 print('removed successfully ${snapshot.data[index]['product_name']}');
+                                // setState(() {
+                                //   Cart();
+                                // });
+
                               },
                               icon: Icon(Icons.remove_circle_outline_rounded),
                               color: Colors.red,

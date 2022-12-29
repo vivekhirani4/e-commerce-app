@@ -16,19 +16,6 @@ class _Product_viewState extends State<Product_view> {
   Future? myfuture;
 
   var mylist = [];
-  var sub_category_name1 = [
-    'Sarees',
-    'Jeans',
-    'Shirts',
-    'Western dresses',
-    'Ear-Rings',
-    'Medicals',
-    'Shoes'
-    'Purses & Bags',
-    'Sling Bags',
-    'Watches',
-    'High Heels'
-  ];
 
 
   @override

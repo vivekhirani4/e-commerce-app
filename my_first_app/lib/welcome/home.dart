@@ -29,42 +29,12 @@ class _HomeScreenState extends State<HomeScreen>
     print('response body : ${response.body}');
 
     Map<String, dynamic> mymap = json.decode(response.body);
-    mydata = mymap['sub_category'];
+    mydata = mymap['sub_category_list'];
 
     return mydata;
+
   }
 
-  var photos = [
-    "https://akashsir.in/myapi/ecom1/upload/1651269307jeans.jpg",
-    "https://akashsir.in/myapi/ecom1/upload/1651268981shirt1.jpg",
-    "https://akashsir.in/myapi/ecom1/upload/1651269296sports1.jpg",
-    "https://akashsir.in/myapi/ecom1/upload/1651269274highs1.jpg",
-    "https://akashsir.in/myapi/ecom1/upload/1651269222saree1.jpg",
-    "https://akashsir.in/myapi/ecom1/upload/1651269098earrings3.jpg",
-    "https://akashsir.in/myapi/ecom1/upload/1651256751watch1.jpg",
-    "https://akashsir.in/myapi/ecom1/upload/1651294453dress1.jpg",
-    "https://akashsir.in/myapi/ecom1/upload/1651645441purse3.jpg",
-    "https://akashsir.in/myapi/ecom1/upload/1651646069sling1.jpg",
-    "https://t4.ftcdn.net/jpg/02/81/42/77/360_F_281427785_gfahY8bX4VYCGo6jlfO8St38wS9cJQop.jpg",
-    'https://akashsir.in/myapi/ecom1/upload/16709377231.png',
-    'https://akashsir.in/myapi/ecom1/upload/16715373044l.png'
-  ];
-
-  var discount = [
-    '30% off',
-    '32% off',
-    '35% off',
-    '32% off',
-    '36% off',
-    '23% off',
-    '26% off',
-    '43% off',
-    '45% off',
-    '36% off',
-    '22% off',
-    '52% off',
-    '32% off',
-  ];
   ScrollController? _scrollController;
   TabController? _tabController;
 
@@ -128,8 +98,8 @@ class _HomeScreenState extends State<HomeScreen>
                       margin: EdgeInsets.only(left: 20),
                       child: const Text(
                         'Popular Items',
-                        style: TextStyle(fontSize: 30),
-                      ))
+                        style: TextStyle(fontSize: 30, color: Colors.grey),
+                      ),)
                 ],
               ),
               SizedBox(

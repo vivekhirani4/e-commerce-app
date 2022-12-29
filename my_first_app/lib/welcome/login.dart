@@ -31,19 +31,25 @@ class _LoginState extends State<Login> {
 
     var u_id = data['user_id'];
     print('user id = ${u_id}');
+    var u_name = data['user_name'];
+    var u_number = data['user_mobile'];
+    var u_address = data['user_address'];
 
     SharedPreferences srf = await SharedPreferences.getInstance();
     await srf.setString('user_id', u_id);
+    await srf.setString('user_name', u_name);
+    await srf.setString('user_number', u_number);
+    await srf.setString('user_address', u_address );
 
     setState(() {
       if (flag == 1) {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Catogory(),
-            ));
+              builder: (context) => DashBoardScreen(),
+            ),);
       }
-    });
+    },);
   }
 
   bool _isHidden = true;
