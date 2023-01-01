@@ -91,141 +91,143 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        title: Text(
-          widget.sub_name,
-          style: TextStyle(color: Color(0xFF545D68), fontSize: 24),
-        ),
-        centerTitle: true,
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications_none,
-              color: Color(0xFF545D68),
-            ),
-          )
-        ],
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color.fromARGB(255, 22, 169, 254),
+            Color(0xffffffff)
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter
+        )
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                // margin: EdgeInsets.only(left),
-                height: 300,
-                width: 300,
-                decoration: BoxDecoration(
-                    color: Color(0xFF545D68),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 3.0,
-                          color: Colors.black.withOpacity(0.2),
-                          offset: Offset(0, 9)),
-                    ],
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        '${widget.image}',
-                      ),
-                    )),
-                // child:
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Text(widget.sub_name,
+                  style: TextStyle(
+                    fontSize: 25,
+                  ),),
+
+                  SizedBox(height: 10,),
+
                   Container(
-                    width: 180,
-                    child: Text(
-                      '${widget.name}',
-                      style: TextStyle(fontSize: 18),
+                    // margin: EdgeInsets.only(left),
+                    height: 300,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 56, 182, 255),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(50),
+                          bottomRight: Radius.circular(50),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              blurRadius: 3.0,
+                              color: Colors.black.withOpacity(0.2),
+                              offset: Offset(0, 9)),
+                        ],
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            '${widget.image}',
+                          ),
+                        )
+                        ),    
+                    
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 180,
+                        child: Text(
+                          '${widget.name}',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                      Text(
+                        ' Price = \₹ ${widget.price}',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                    thickness: 2,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Product Details',
+                          style: TextStyle(fontSize: 19),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          widget.details,
+                          style: TextStyle(
+                              fontSize: 17, color: Colors.black.withOpacity(0.6)),
+                        ),
+                      ],
                     ),
                   ),
-                  Text(
-                    ' Price = \₹ ${widget.price}',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          _decreseCount();
+                        },
+                        icon: Icon(Icons.minimize),
+                      ),
+                      Text('$count'),
+                      IconButton(
+                        onPressed: () {
+                          _incrementCount();
+                        },
+                        icon: Icon(Icons.add),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      _addcart();
+                    },
+                    child: Text('Add to Cart'),
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(390, 48),
+                        primary: Colors.blue[400]),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Divider(
-                color: Colors.grey,
-                thickness: 2,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    Text(
-                      'Product Details',
-                      style: TextStyle(fontSize: 19),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      widget.details,
-                      style: TextStyle(
-                          fontSize: 17, color: Colors.black.withOpacity(0.6)),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      _decreseCount();
-                    },
-                    icon: Icon(Icons.minimize),
-                  ),
-                  Text('$count'),
-                  IconButton(
-                    onPressed: () {
-                      _incrementCount();
-                    },
-                    icon: Icon(Icons.add),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  _addcart();
-                },
-                child: Text('Add to Cart'),
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(390, 48),
-                    primary: Colors.yellow[600]),
-              ),
-            ],
+            ),
           ),
         ),
       ),

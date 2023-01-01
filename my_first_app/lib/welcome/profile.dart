@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../order/order_list.dart';
+
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -26,10 +28,11 @@ class _ProfileState extends State<Profile> {
   var email;
   var gender;
   var addres;
+  var u_id;
 
   _getProfile() async {
     SharedPreferences srf = await SharedPreferences.getInstance();
-    var u_id = await srf.getString('user_id');
+    u_id = await srf.getString('user_id');
 
     var url =
         Uri.https('akashsir.in', '/myapi/ecom1/api/api-user-profile-list.php');
@@ -56,33 +59,66 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromARGB(255, 22, 169, 254),
-            Color(0xffffffff)
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter
-        )
-      ),
+          gradient: LinearGradient(
+              colors: [Color.fromARGB(255, 22, 169, 254), Color(0xffffffff)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter)),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
           body: SafeArea(
-        child: Column(
-          children: [
-            Center(
-              child: Container(
-                              
-              ),
+            child: Column(
+              children: [
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Text(
+                          myname == null ? 'Hey' : "Hey, \n   $myname",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white.withOpacity(0.8)),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  setState(
+                                    () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              OrderList(user_id: u_id),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  'Your orders',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black),
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.blue[300],
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20))),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Icon(
-              Icons.person,
-              size: 200,
-            ),
-            Text(myname == null ? 'Hey,' : "Hey, \n  $myname")
-          ],
-        ),
-      )),
+          )),
     );
   }
 }
