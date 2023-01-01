@@ -66,9 +66,19 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFfafafc),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color.fromARGB(255, 22, 169, 254),
+            Color(0xffffffff)
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter
+        )
+      ),
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.transparent,
           body: Column(
             children: [
               Container(
@@ -98,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen>
                       margin: EdgeInsets.only(left: 20),
                       child: const Text(
                         'Popular Items',
-                        style: TextStyle(fontSize: 30, color: Colors.grey),
+                        style: TextStyle(fontSize: 30,),
                       ),)
                 ],
               ),
@@ -173,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen>
                 height: 15,
               ),
               Divider(
-                color: Colors.grey.withOpacity(0.4),
+                color: Colors.grey.withOpacity(0.8),
                 thickness: 2,
               ),
               SizedBox(
@@ -182,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen>
               Text(
                 'Category',
                 style: TextStyle(
-                    color: Colors.grey,
+                    
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
@@ -222,14 +232,6 @@ class _HomeScreenState extends State<HomeScreen>
                             decoration: BoxDecoration(
                               // color: Colors.grey.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(15),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 8,
-                                  color: Colors.grey.withOpacity(0.2),
-                                  offset: Offset(-1, 5),
-                                  spreadRadius: 2
-                                )
-                              ]
                             ),
                             margin: EdgeInsets.all(10),
                             padding: EdgeInsets.all(10),

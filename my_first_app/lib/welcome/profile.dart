@@ -12,66 +12,77 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
   Future? myfuture;
-    @override
+  var myname;
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-     _getProfile();
+    myname = _getProfile();
   }
 
-  var name;
   var mobile;
   var email;
   var gender;
   var addres;
 
-  void _getProfile() async {
-
-
+  _getProfile() async {
     SharedPreferences srf = await SharedPreferences.getInstance();
     var u_id = await srf.getString('user_id');
 
-    var url = Uri.https('akashsir.in','/myapi/ecom1/api/api-user-profile-list.php');
-    var response = await http.post(url , body: {
-      'user_id' : u_id,
+    var url =
+        Uri.https('akashsir.in', '/myapi/ecom1/api/api-user-profile-list.php');
+    var response = await http.post(url, body: {
+      'user_id': u_id,
     });
     print('response code : ${response.statusCode}');
     print('response body : ${response.body}');
-    
+
     var mymap = json.decode(response.body);
 
-    name = mymap['user_name'];
-    mobile = mymap['user_mobile'];
-    email = mymap['user_email'];
-    addres = mymap['user_address'];
-    gender = mymap['user_gender'];
-
+    if (response.statusCode == 200) {
+      setState(() {
+        myname = mymap['user_name'];
+        mobile = mymap['user_mobile'];
+        email = mymap['user_email'];
+        addres = mymap['user_address'];
+        gender = mymap['user_gender'];
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: Column(
-        children: [
-          Center(
-            child: Container(
-              margin: EdgeInsets.only(top: 40),
-              child: Text(
-                'User profile',
-                style: TextStyle(fontSize: 24,
-                 fontWeight: FontWeight.bold),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color.fromARGB(255, 22, 169, 254),
+            Color(0xffffffff)
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter
+        )
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+          body: SafeArea(
+        child: Column(
+          children: [
+            Center(
+              child: Container(
+                              
               ),
             ),
-          ),
-          Icon(Icons.person,
-          size: 200,),
-
-          Text(name)
-        ],
-      ),
-    ));
+            Icon(
+              Icons.person,
+              size: 200,
+            ),
+            Text(myname == null ? 'Hey,' : "Hey, \n  $myname")
+          ],
+        ),
+      )),
+    );
   }
 }
