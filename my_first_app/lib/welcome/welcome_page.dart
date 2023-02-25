@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_app/model.dart';
 import 'package:my_first_app/product/catagory.dart';
 import 'package:my_first_app/welcome/dashboard.dart';
 import 'package:my_first_app/welcome/home.dart';
@@ -13,6 +14,14 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+
+List<Images> imageList = [
+  Images('assets\login.png', 'login'),
+  Images('assets\login.png', 'login'),
+  Images('assets\login.png', 'login'),
+  Images('assets\login.png', 'login'),
+];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,16 +52,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     fontSize: 15,
                   ),
                 ),
-          
-                Container(
-                  margin: EdgeInsets.only(top: 60),
-                  height: MediaQuery.of(context).size.height / 3,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/15.jpg'),
-                    ),
-                  ),
+                
+                Column(
+                  children: imageList.map((e) => buildcontainer(e.image,e.name)).toList(),
                 ),
+                
                 SizedBox(
                   height: 30,
                 ),
@@ -182,5 +186,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
       ),
     );
+  }
+
+  Widget buildcontainer(String image, String name )
+  {
+    return Container(
+                  margin: EdgeInsets.only(top: 60),
+                  height: MediaQuery.of(context).size.height / 3,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(image),
+                    ),
+                  ),
+                );
   }
 }
